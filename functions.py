@@ -1206,6 +1206,10 @@ class GeoModel:
                 # Semantic label.
                 # 0: non-channel, 1: channel.
                 self.channel = np.zeros(self.Z.shape, dtype=np.uint8)
+        
+        # Initialize facies marker.
+        if self.facies is None:
+            self.facies = np.zeros(self.Z.shape, dtype=np.uint8)
 
         # Initialize table.
         meander_parameter = PrettyTable()
@@ -1392,6 +1396,8 @@ class GeoModel:
                         self.channel[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 100 + self.n_meandering
                     else:
                         self.channel[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 1                           
+                    # Facies: lag deposits (1).
+                    self.facies[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 1
                     # Channel fill Vp.
                     self.vp[indy[i], indx[i], indz1[i]:indz2[i] + 1] = vpfill
             
@@ -1443,6 +1449,10 @@ class GeoModel:
                 # Semantic label.
                 # 0: non-channel, 1: channel.
                 self.channel = np.zeros(self.Z.shape, dtype=np.uint8)
+                
+        # Initialize facies marker.
+        if self.facies is None:
+            self.facies = np.zeros(self.Z.shape, dtype=np.uint8)
         
         # Check Vp model.
         if self.vp is None:
@@ -1576,7 +1586,9 @@ class GeoModel:
                         if instance_label:
                             self.channel[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 100 + self.n_meandering
                         else:
-                            self.channel[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 1                           
+                            self.channel[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 1
+                        # Facies: lag deposits (1).
+                        self.facies[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 1                           
                         # Channel fill Vp.
                         arr_shape = self.vp[indy[i], indx[i], indz1[i]:indz2[i] + 1].shape
                         vpfill_noisy = np.random.normal(vpfill, 100, arr_shape)  # Noisy channel fill vp.
@@ -1669,7 +1681,11 @@ class GeoModel:
                 # Semantic label.
                 # 0: non-channel, 1: channel.
                 self.channel = np.zeros(self.Z.shape, dtype=np.uint8)
-            
+        
+        # Initialize facies marker.
+        if self.facies is None:
+            self.facies = np.zeros(self.Z.shape, dtype=np.uint8)    
+        
         # Check Vp model.
         if self.vp is None:
             raise ValueError("Vp model not found.")
@@ -1765,6 +1781,8 @@ class GeoModel:
                             self.channel[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 200 + self.n_tributary
                         else:
                             self.channel[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 1
+                        # Facies: lag deposits (1).
+                        self.facies[indy[i], indx[i], indz1[i]:indz2[i] + 1] = 1
                         # Channel fill Vp.
                         arr_shape = self.vp[indy[i], indx[i], indz1[i]:indz2[i] + 1].shape
                         vpfill_noisy = np.random.normal(vpfill, 100, arr_shape)  # Noisy channel fill vp.
