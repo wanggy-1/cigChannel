@@ -5,7 +5,7 @@ Created by Guangyu Wang @ USTC
 2022.10.01
 """
 
-import random, math, numba, sys, multiprocessing, os, re
+import random, math, numba, sys, multiprocessing, os, re, skimage
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
@@ -1516,6 +1516,8 @@ class GeoModel:
                 # Get channel centerline distance map.
                 path = os.path.join(database_dir, my_database+'/'+my_channel)
                 distmap = np.load(path+'/data.npy')
+                if distmap.shape != self.Z.shape[:2]:
+                    distmap = skimage.transform.resize(distmap, self.Z.shape[:2])
                 
                 # Determine the z-coordinate of the channel.
                 if len(horizon_in_range) > 0:
@@ -1709,6 +1711,8 @@ class GeoModel:
                     database['id'].remove(my_topo)  # The chosen topography will never be chosen again.
                 fp = os.path.join(database_dir, my_topo+'/data.npy')
                 topo = np.load(fp)  # Channel topography.
+                if topo.shape != self.Z.shape[:2]:
+                    topo = skimage.transform.resize(topo, self.Z.shape[:2])
                 topo[topo < self.dZ] = 0
                             
                 # Determine the z-coordinate of the channel.
