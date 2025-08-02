@@ -51,3 +51,20 @@ You can also create multiple seismic volumes in parallel by running `assorted_ch
 
 ## AI models for channel identification
 Tutorial coming up.
+
+## Acknowledgements
+The 3D volumes are visualized by [cigvis](https://github.com/JintaoLee-Roger/cigvis), an outstanding open-source toolbox developed by the [Computational Interpretation Group](http://cig.ustc.edu.cn/main.htm) at USTC.
+
+## Citations
+If you find this work useful in your research and want to cite it, please consider use this:
+```
+@article{wang2024cigchannel,
+  title={cigChannel: A massive-scale 3D seismic dataset with labeled paleochannels for advancing deep learning in seismic interpretation},
+  author={Wang, Guangyu and Wu, Xinming and Zhang, Wen},
+  journal={Earth System Science Data Discussions},
+  volume={2024},
+  pages={1--27},
+  year={2024},
+  publisher={G{\"o}ttingen, Germany}
+}
+```
